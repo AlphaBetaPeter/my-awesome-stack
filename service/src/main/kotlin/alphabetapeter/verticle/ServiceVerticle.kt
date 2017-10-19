@@ -1,11 +1,16 @@
-package alphabetapeter
+package alphabetapeter.verticle
 
+import alphabetapeter.handler.RootHandler
+import alphabetapeter.mongo.GetPetsHandler
+import alphabetapeter.mongo.SavePetHandler
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Future
+import io.vertx.ext.mongo.MongoClient
 import io.vertx.ext.web.Router
+import io.vertx.ext.web.handler.BodyHandler
 
 
-class ServiceVerticle : AbstractVerticle() {
+class ServiceVerticle(private val mongoClient: MongoClient) : AbstractVerticle() {
 
 	override fun start(startFuture: Future<Void>) {
 		val router = Router.router(vertx)
@@ -15,9 +20,11 @@ class ServiceVerticle : AbstractVerticle() {
 			println("Requested ${it.request().absoluteURI()}")
 			it.next()
 		})
+		router.route().handler(BodyHandler.create())
 
 		router.get("/").handler(RootHandler())
-		router.get("/pet").handler(PetHandler())
+		router.put("/pet").handler(SavePetHandler(mongoClient))
+		router.get("/pets").handler(GetPetsHandler(mongoClient))
 
 		val servicePort = config().getInteger("http.port", 8080)
 

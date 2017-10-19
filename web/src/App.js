@@ -5,16 +5,16 @@ import './App.css';
 class App extends Component {
 
   state = {
-    pet: null
+    pets: null
   }
 
   fetchPet = () => {
-    fetch("/api/pet")
+    fetch("/api/pets")
       .then(result => result.json())
       .then(pet => {
-        console.log(pet)
+        console.log(pets)
         this.setState({
-          pet
+          pets
         })
       })
     .catch(e => console.log(e))
@@ -31,7 +31,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <button onClick={this.fetchPet}>fetchPet</button>
-        <pre>{JSON.stringify(this.state.pet)}</pre>
+        <pre>{JSON.stringify(this.state.pets)}</pre>
       </div>
     );
   }

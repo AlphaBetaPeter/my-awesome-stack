@@ -1,4 +1,4 @@
-package alphabetapeter
+package alphabetapeter.handler
 
 import io.netty.handler.codec.http.HttpHeaderNames
 import io.netty.handler.codec.http.HttpHeaderValues

@@ -2,6 +2,14 @@
 version: "3.3"
 
 services:
+
+  my-awesome-database:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      - backend-network
+
   my-awesome-service:
     build:
        context: service
@@ -11,6 +19,7 @@ services:
     networks:
       - frontend-network
       - backend-network
+
   my-awesome-web:
     build:
        context: web
