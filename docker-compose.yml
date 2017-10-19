@@ -1,0 +1,25 @@
+
+version: "3.3"
+
+services:
+  my-awesome-service:
+    build:
+       context: service
+    image: my-awesome-service
+    ports:
+      - "8080:8080"
+    networks:
+      - frontend-network
+      - backend-network
+  my-awesome-web:
+    build:
+       context: web
+    image: my-awesome-web
+    ports:
+      - "80:80"
+    networks:
+      - frontend-network
+
+networks:
+  frontend-network:
+  backend-network:
