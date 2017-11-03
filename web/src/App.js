@@ -11,7 +11,7 @@ class App extends Component {
   fetchPet = () => {
     fetch("/api/pets")
       .then(result => result.json())
-      .then(pet => {
+      .then(pets => {
         console.log(pets)
         this.setState({
           pets
